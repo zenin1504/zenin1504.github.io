@@ -3,133 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#02040a">
-    <title>sm8635-dev</title>
+    <meta name="theme-color" content="#010409">
+    <title>sm8635 // peridot</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #02040a;
-            --accent-primary: #0062ff;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-edge: rgba(255, 255, 255, 0.08);
-            --text-main: #ffffff;
-            --text-secondary: #94a3b8;
-            --text-terminal: #60a5fa;
-            --m3-easing: cubic-bezier(0.2, 0, 0, 1);
+            --bg: #010409;
+            --card-bg: #0d1117;
+            --card-border: #21262d;
+            --text-main: #e6edf3;
+            --text-dim: #7d8590;
+            --accent: #2f81f7;
+            --btn-bg: #21262d;
+            --btn-border: #30363d;
+            --m3-ease: cubic-bezier(0.2, 0, 0, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; text-transform: none !important; }
-        html, body { width: 100%; height: 100%; background-color: var(--bg-base); overflow-x: hidden; }
-        body { color: var(--text-main); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; background-image: radial-gradient(circle at 50% -10%, rgba(0, 98, 255, 0.3) 0%, transparent 60%); }
-
-        .fx-wrapper { position: fixed; inset: 0; z-index: -1; pointer-events: none; filter: blur(100px); opacity: 0.7; }
-        .blob { position: absolute; background: var(--accent-primary); border-radius: 50%; width: 600px; height: 600px; }
-        .blob-one { top: -100px; left: -100px; opacity: 0.3; animation: move 20s infinite alternate; }
-        @keyframes move { from { transform: translate(0,0); } to { transform: translate(50px, 100px); } }
-
-        .navigation-dock { position: fixed; top: 24px; width: calc(100% - 48px); max-width: 420px; z-index: 1000; }
-        .pill-bar { height: 72px; background: rgba(8, 11, 18, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-edge); border-radius: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px 0 28px; }
-        .logo-text { font-family: 'Google Sans', sans-serif; font-weight: 700; font-size: 1.25rem; }
-        .social-link, .menu-trigger { cursor: pointer; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; }
-
-        .main-shell { width: 100%; max-width: 420px; padding: 140px 24px 80px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
-        .hero-block { text-align: center; }
-        .hero-title { font-family: 'Google Sans', sans-serif; font-size: 3.5rem; font-weight: 700; line-height: 0.9; letter-spacing: -2px; margin-bottom: 10px; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+            text-transform: none !important; 
+        }
         
-        .device-perspective { width: 100%; display: flex; justify-content: center; pointer-events: none; }
-        .device-render { width: 85%; max-width: 320px; animation: float 6s infinite ease-in-out; }
-        .a16-proper-badge { width: 150px; height: 150px; margin: -10px 0; pointer-events: none; animation: float 5s infinite ease-in-out reverse; }
-        .a16-proper-badge img, .device-render { width: 100%; height: auto; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-        .content-card { width: 100%; background: var(--glass-bg); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--glass-edge); border-radius: 40px; padding: 32px; position: relative; }
-        .status-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #10b981; text-transform: uppercase; margin-bottom: 8px; display: block; }
-        .card-headline { font-family: 'Google Sans', sans-serif; font-size: 2.2rem; font-weight: 500; }
-
-        .link-grid { width: 100%; display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 10; }
-        .nav-link { 
-            width: 100%; height: 72px; background: var(--glass-bg); border: 1px solid var(--glass-edge); border-radius: 24px; 
-            display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; 
-            font-family: 'Google Sans', sans-serif; font-weight: 600; font-size: 1.1rem;
-            transition: background 0.2s, transform 0.2s;
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; 
+            padding: 12px;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            overflow-x: hidden;
         }
 
-        @media (hover: hover) {
-            .nav-link:hover { background: white; color: black; transform: translateY(-3px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .nav-link:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
-        .nav-link-alt { background: rgba(0, 98, 255, 0.15); border-color: rgba(0, 98, 255, 0.3); }
 
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 2000; display: none; align-items: flex-end; justify-content: center; }
-        .sheet { width: 100%; max-width: 460px; background: #0a0c12; border-radius: 32px 32px 0 0; padding: 32px 24px; transform: translateY(100%); transition: transform 0.4s var(--m3-easing); }
+        .nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 480px;
+            margin: 10px auto 16px;
+            animation: fadeInUp 0.5s var(--m3-ease) forwards;
+        }
+
+        .brand h1 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+        .brand p { font-size: 0.7rem; color: var(--text-dim); font-weight: 500; }
+
+        .header-icons { display: flex; gap: 14px; color: var(--text-dim); }
+        .icon-btn { cursor: pointer; transition: color 0.2s; padding: 4px; display: flex; align-items: center; }
+        .icon-btn:active { color: white; transform: scale(0.9); }
+
+        .search-box {
+            max-width: 480px;
+            margin: 0 auto 16px;
+            position: relative;
+            animation: fadeInUp 0.5s var(--m3-ease) 0.1s forwards;
+            opacity: 0;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 7px 12px 7px 34px;
+            color: white;
+            font-size: 0.8rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            opacity: 0.7;
+        }
+
+        .device-card {
+            max-width: 480px;
+            margin: 0 auto 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            overflow: hidden;
+            animation: fadeInUp 0.5s var(--m3-ease) 0.2s forwards;
+            opacity: 0;
+        }
+
+        .device-card-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .device-card-header h2 { font-size: 1rem; font-weight: 700; }
+        .device-card-header span { font-size: 0.7rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+
+        .build-row {
+            padding: 16px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .build-row:last-child { border-bottom: none; }
+
+        .tag {
+            background: var(--btn-bg);
+            border: 1px solid var(--btn-border);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-main);
+            width: fit-content;
+            margin-bottom: 10px;
+        }
+
+        .build-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+        .build-sub { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px; font-weight: 500; }
+        
+        .link-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .blue-link { font-size: 0.75rem; color: var(--accent); text-decoration: none; cursor: pointer; width: fit-content; font-weight: 500; }
+        .blue-link:active { opacity: 0.6; }
+
+        .row-footer { display: flex; align-items: flex-end; justify-content: space-between; }
+        .status-info { font-size: 0.75rem; line-height: 1.3; font-weight: 500; }
+        .status-info .date { font-size: 0.65rem; color: var(--text-dim); }
+
+        .history-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--btn-border);
+            color: var(--accent);
+            padding: 6px 0;
+            width: 120px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .history-btn:active { background: #30363d; transform: scale(0.97); }
+
+        .fab {
+            position: fixed;
+            bottom: 24px;
+            right: 16px;
+            background: #f0df15;
+            color: #000;
+            padding: 10px 18px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            z-index: 1000;
+            animation: fadeInUp 0.5s var(--m3-ease) 0.4s backwards;
+        }
+
+        .fab-count { background: rgba(0,0,0,0.1); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; }
+
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: flex-end; justify-content: center; }
+        .modal { width: 100%; max-width: 500px; background: var(--card-bg); border-top: 1px solid var(--card-border); border-radius: 12px 12px 0 0; padding: 24px 16px; transform: translateY(100%); transition: transform 0.3s var(--m3-ease); }
         .overlay.active { display: flex; }
-        .overlay.active .sheet { transform: translateY(0); }
-        .code-block { display: block; background: #000; padding: 16px; border-radius: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-terminal); border: 1px solid var(--glass-edge); margin-top: 10px; cursor: pointer; }
-        .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; color: #000; padding: 12px 24px; border-radius: 50px; font-weight: 600; opacity: 0; transition: 0.4s; z-index: 3000; }
-        .toast.active { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .overlay.active .modal { transform: translateY(0); }
+        .modal h2 { font-size: 1rem; margin-bottom: 16px; font-weight: 700; }
+        .code { background: #000; padding: 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent); border: 1px solid var(--card-border); margin-bottom: 8px; cursor: pointer; display: block; overflow-x: auto; white-space: nowrap; }
+
+        @media (max-width: 400px) {
+            .history-btn { width: 100px; }
+        }
     </style>
 </head>
 <body>
-    <div class="fx-wrapper"><div class="blob blob-one"></div></div>
 
-    <header class="navigation-dock">
-        <nav class="pill-bar">
-            <span class="logo-text">sm8635-dev</span>
-            <div style="display:flex; gap:8px;">
-                <a href="https://github.com/zenin1504" class="social-link" target="_blank">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                </a>
-                <div class="menu-trigger" onclick="ui.modal(true)">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" stroke-width="2.5"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="16" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
-                </div>
+    <header class="nav-header">
+        <div class="brand">
+            <h1>sm8635-dev</h1>
+            <p>peridot.github.io</p>
+        </div>
+        <div class="header-icons">
+            <div class="icon-btn" onclick="ui.share()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
             </div>
-        </nav>
+            <div class="icon-btn" onclick="ui.modal(true)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg>
+            </div>
+        </div>
     </header>
 
-    <main class="main-shell">
-        <section class="hero-block"><h1 class="hero-title">evolution x <br>& yaap</h1><p style="color:var(--text-secondary)">peridot development</p></section>
-        <div class="device-perspective"><img src="https://i02.appmifile.com/755_operator_sg/07/05/2024/6533de660f0c9a493e343af0dc4285be.png" alt="phone" class="device-render"></div>
-        <div class="a16-proper-badge"><img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Android_16_Developer_Preview_Logo.svg" alt="A16"></div>
-        <section class="content-card"><span class="status-label">● online</span><h2 class="card-headline">poco f6</h2></section>
+    <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        <input type="text" placeholder="search devices...">
+    </div>
 
-        <nav class="link-grid">
-            <a href="https://cdn.evolution-x.org/peridot/16" class="nav-link" target="_blank">evolution x</a>
-            <a href="https://zenin1504.dpdns.org/peridot/yaap/" class="nav-link" target="_blank">yaap</a>
-            <a href="https://t.me/zenin1504" class="nav-link" target="_blank">contact me</a>
-            <a href="https://sociabuzz.com/kayozz/tribe" class="nav-link nav-link-alt" target="_blank">support development</a>
-        </nav>
-    </main>
+    <div class="device-card">
+        <div class="device-card-header">
+            <h2>poco f6 / redmi turbo 3</h2>
+            <span>peridot / sm8635</span>
+        </div>
 
-    <div class="overlay" id="overlay" onclick="ui.modal(false)">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <h3 style="margin-bottom:20px">instructions</h3>
-            <code class="code-block" onclick="ui.copy(this)">fastboot flash boot_ab boot.img</code>
-            <code class="code-block" onclick="ui.copy(this)">fastboot flash dtbo_ab dtbo.img</code>
-            <code class="code-block" onclick="ui.copy(this)">fastboot flash init_boot_ab init_boot.img</code>
-            <code class="code-block" onclick="ui.copy(this)">fastboot flash recovery_ab recovery.img</code>
-            <code class="code-block" onclick="ui.copy(this)">fastboot flash vendor_boot_ab vendor_boot.img</code>
-            <div style="height:20px"></div>
-            <code class="code-block" onclick="ui.copy(this)">fastboot reboot recovery</code>
-            <code class="code-block" onclick="ui.copy(this)">adb sideload ROM.zip</code>
+        <div class="build-row">
+            <div class="tag">evo x</div>
+            <h3 class="build-title">evolution x 16.x</h3>
+            <p class="build-sub">official / android 16 build</p>
+            <div class="link-group">
+                <span class="blue-link" onclick="ui.modal(true)">flashing instructions</span>
+                <a href="https://t.me/zenin1504" class="blue-link" target="_blank">support group</a>
+            </div>
+            <div class="row-footer">
+                <div class="status-info">
+                    <p>online</p>
+                    <p class="date">2024-11-20</p>
+                </div>
+                <a href="https://cdn.evolution-x.org/peridot/16" class="history-btn">history ›</a>
+            </div>
+        </div>
+
+        <div class="build-row">
+            <div class="tag">yaap</div>
+            <h3 class="build-title">yaap unofficial</h3>
+            <p class="build-sub">community build</p>
+            <div class="link-group">
+                <span class="blue-link" onclick="ui.modal(true)">flashing instructions</span>
+                <a href="https://t.me/zenin1504" class="blue-link" target="_blank">support group</a>
+            </div>
+            <div class="row-footer">
+                <div class="status-info">
+                    <p>online</p>
+                    <p class="date">2024-11-18</p>
+                </div>
+                <a href="https://zenin1504.dpdns.org/peridot/yaap/" class="history-btn">history ›</a>
+            </div>
         </div>
     </div>
 
-    <div class="toast" id="toast">copied</div>
+    <a href="https://sociabuzz.com/kayozz/tribe" class="fab" target="_blank">
+        <span>🍺 buy me a beer</span>
+        <div class="fab-count">0</div>
+    </a>
+
+    <div class="overlay" id="overlay" onclick="ui.modal(false)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div style="width: 32px; height: 3px; background: #30363d; border-radius: 10px; margin: -8px auto 20px;"></div>
+            <h2>instructions</h2>
+            <div class="code" onclick="ui.copy(this)">fastboot flash boot_ab boot.img</div>
+            <div class="code" onclick="ui.copy(this)">fastboot flash dtbo_ab dtbo.img</div>
+            <div class="code" onclick="ui.copy(this)">fastboot flash init_boot_ab init_boot.img</div>
+            <div class="code" onclick="ui.copy(this)">fastboot flash recovery_ab recovery.img</div>
+            <div class="code" onclick="ui.copy(this)">fastboot flash vendor_boot_ab vendor_boot.img</div>
+            <div style="height:8px"></div>
+            <div class="code" onclick="ui.copy(this)" style="color:#3fb950">fastboot reboot recovery</div>
+            <div class="code" onclick="ui.copy(this)" style="color:#3fb950">adb sideload ROM.zip</div>
+        </div>
+    </div>
 
     <script>
         const ui = {
             modal(s) {
-                const o = document.getElementById('overlay');
-                if(s) { o.style.display = 'flex'; setTimeout(()=>o.classList.add('active'),10); }
-                else { o.classList.remove('active'); setTimeout(()=>o.style.display='none',400); }
+                const ov = document.getElementById('overlay');
+                if(s) {
+                    ov.style.display = 'flex';
+                    setTimeout(() => ov.classList.add('active'), 10);
+                } else {
+                    ov.classList.remove('active');
+                    setTimeout(() => ov.style.display = 'none', 300);
+                }
             },
-            async copy(e) {
-                await navigator.clipboard.writeText(e.innerText);
-                const t = document.getElementById('toast');
-                t.classList.add('active');
-                setTimeout(()=>t.classList.remove('active'), 2000);
+            async copy(el) {
+                await navigator.clipboard.writeText(el.innerText);
+                const original = el.style.borderColor;
+                el.style.borderColor = '#3fb950';
+                setTimeout(() => el.style.borderColor = original, 1000);
+            },
+            share() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'sm8635-dev',
+                        url: window.location.href
+                    }).catch(() => {});
+                }
             }
         };
     </script>
